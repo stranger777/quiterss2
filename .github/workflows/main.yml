@@ -1,0 +1,71 @@
+name: Build QuiteRSS for Windows
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+  workflow_dispatch: # Позволяет запустить сборку вручную через кнопку в UI
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive # Важно для подмодулей проекта
+
+    - name: Setup Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.6.0' # Можно изменить на 5.15.2 если нужна старая версия
+        target: 'desktop'
+        arch: 'win64_msvc2019_64'
+        modules: 'qtwebengine qtwebchannel' # Модули нужные для QuiteRSS
+        dir: '${{ github.workspace }}/qt'
+        cached: 'true'
+
+    - name: Setup MSVC
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Configure CMake
+      run: |
+        cmake -S . -B build `
+          -G "Ninja" `
+          -DCMAKE_BUILD_TYPE=Release `
+          -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.6.0/msvc2019_64" `
+          -DUSE_WEBENGINE=ON
+
+    - name: Build
+      run: |
+        cmake --build build --config Release
+
+    - name: Deploy Qt Dependencies
+      run: |
+        # Копируем экзешник во временную папку для деплоя
+        $deployDir = "dist"
+        New-Item -ItemType Directory -Force -Path $deployDir
+        Copy-Item "build/release/quiterss.exe" "$deployDir/"
+
+        # Запускаем windeployqt для сбора всех DLL
+        $qtBinPath = "${{ github.workspace }}/qt/6.6.0/msvc2019_64/bin"
+        & "$qtBinPath/windeployqt.exe" `
+          --release `
+          --no-compiler-runtime `
+          --no-opengl-sw `
+          --dir "$deployDir" `
+          "$deployDir/quiterss.exe"
+
+        # Добавляем платформы (platforms) если не добавились
+        if (!(Test-Path "$deployDir/platforms/qwindows.dll")) {
+           Copy-Item "$qtBinPath/../plugins/platforms/qwindows.dll" "$deployDir/platforms/" -Force
+        }
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: QuiteRSS-Windows-Build
+        path: dist/
+        retention-days: 14
