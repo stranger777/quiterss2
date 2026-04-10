@@ -1,0 +1,16 @@
+2026-04-10 20:02:03,904 - aqt.helper - DEBUG - helper 14504 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:02:28,283 - aqt.helper - DEBUG - helper 14504 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:02:52,363 - aqt.helper - DEBUG - helper 14504 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:03:16,414 - aqt.helper - DEBUG - helper 14504 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:04:25,785 - aqt.helper - DEBUG - helper 17696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:04:49,837 - aqt.helper - DEBUG - helper 17696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:05:13,883 - aqt.helper - DEBUG - helper 17696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:05:37,926 - aqt.helper - DEBUG - helper 17696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:06:01,984 - aqt.helper - DEBUG - helper 17696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_682/qt6_682/Updates.xml.sha256
+2026-04-10 20:06:26,039 - aqt.main - ERROR - installer 17696 Failed to download checksum for the file 'Updates.xml' from mirrors '['https://download.qt.io']
+==============================Suggested follow-up:==============================
+* Check your internet connection
+* Consider modifying `requests.max_retries_to_retrieve_hash` in settings.ini
+* Consider modifying `mirrors.trusted_mirrors` in settings.ini (see https://aqtinstall.readthedocs.io/en/stable/configuration.html#configuration)
+* Please use 'aqt list-qt windows desktop' to show versions of Qt available.
+* Please use 'aqt list-qt windows desktop --arch <QT_VERSION>' to list valid architectures.

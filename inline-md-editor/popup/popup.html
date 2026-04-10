@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inline MD Editor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      color: #333;
+      background: #fff;
+      width: 280px;
+      padding: 12px;
+    }
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #222;
+    }
+    .section {
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #999;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .shortcut {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3px 0;
+    }
+    .shortcut-desc {
+      color: #666;
+    }
+    kbd {
+      display: inline-block;
+      padding: 1px 5px;
+      font-family: inherit;
+      font-size: 11px;
+      color: #555;
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      border: 1px solid #4a90d9;
+      border-radius: 4px;
+      background: #4a90d9;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn:hover { background: #3a7bc8; }
+    .divider {
+      height: 1px;
+      background: #e8e8e8;
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>✏️ Inline MD Editor</h1>
+
+  <div class="section">
+    <div class="section-title">Управление</div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Режим выбора</span>
+      <kbd>Ctrl+Shift+E</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Применить</span>
+      <kbd>Ctrl+Enter</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Закрыть</span>
+      <kbd>Escape</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Показать оригинал</span>
+      <kbd>Ctrl+O</kbd>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-title">Форматирование</div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Жирный</span>
+      <kbd>Ctrl+B</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Курсив</span>
+      <kbd>Ctrl+I</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Ссылка</span>
+      <kbd>Ctrl+K</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Код</span>
+      <kbd>Ctrl+`</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Заголовок</span>
+      <kbd>Ctrl+Shift+H</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Список</span>
+      <kbd>Ctrl+Shift+L</kbd>
+    </div>
+    <div class="shortcut">
+      <span class="shortcut-desc">Цитата</span>
+      <kbd>Ctrl+Shift+Q</kbd>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <button class="btn" id="toggle-btn">Включить режим выбора</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>

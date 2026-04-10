@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Inline MD Editor",
+  "version": "1.0.0",
+  "description": "Edit any web page inline with Markdown — keyboard-first, zero clutter",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icon-16.png",
+      "48": "icon-48.png"
+    }
+  },
+  "commands": {
+    "toggle": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E"
+      },
+      "description": "Toggle pick mode"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

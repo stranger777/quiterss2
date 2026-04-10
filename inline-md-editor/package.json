@@ -1,0 +1,17 @@
+{
+  "name": "inline-md-editor",
+  "version": "1.0.0",
+  "description": "Browser extension for inline Markdown editing of any web page",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.0",
+    "jsdom": "^25.0.0",
+    "turndown": "^7.2.0",
+    "marked": "^14.0.0"
+  }
+}
