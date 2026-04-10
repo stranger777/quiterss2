@@ -25,7 +25,7 @@
 #else
 #ifdef QT_GUI_LIB
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 #endif
 #endif
 #ifdef Q_OS_MAC
@@ -240,9 +240,9 @@ void GAnalytics::generateUserAgentEtc()
     m_screenResolution = geom;
 #else
 #ifdef QT_GUI_LIB
-    QString geom = QString::number(QApplication::desktop()->screenGeometry().width())
-            + "x" + QString::number(QApplication::desktop()->screenGeometry().height());
-    _screenResolution = geom;
+    QString geom = QString::number(qApp->primaryScreen()->geometry().width())
+            + "x" + QString::number(qApp->primaryScreen()->geometry().height());
+    m_screenResolution = geom;
 #endif
 #endif
 #if GANALYTICS_DEBUG > 1

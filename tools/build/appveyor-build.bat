@@ -6,11 +6,13 @@ mkdir build && cd build
 qmake CONFIG+=%CONFIGURATION% ..\quiterss2.pro
 call jom
 windeployqt bin --qmldir=..\resources\qml\+webview --no-compiler-runtime
-cp c:\Windows\SysWOW64\msvcp140.dll bin
-cp c:\Windows\SysWOW64\vccorlib140.dll bin
-cp c:\Windows\SysWOW64\vcruntime140.dll bin
-cp %OPENSSL_DIR%\bin\libeay32.dll bin
-cp %OPENSSL_DIR%\bin\ssleay32.dll bin
+if exist c:\Windows\SysWOW64\msvcp140.dll cp c:\Windows\SysWOW64\msvcp140.dll bin
+if exist c:\Windows\SysWOW64\vccorlib140.dll cp c:\Windows\SysWOW64\vccorlib140.dll bin
+if exist c:\Windows\SysWOW64\vcruntime140.dll cp c:\Windows\SysWOW64\vcruntime140.dll bin
+if exist %OPENSSL_DIR%\bin\libcrypto-1_1.dll cp %OPENSSL_DIR%\bin\libcrypto-1_1.dll bin
+if exist %OPENSSL_DIR%\bin\libssl-1_1.dll cp %OPENSSL_DIR%\bin\libssl-1_1.dll bin
+if exist %OPENSSL_DIR%\bin\libeay32.dll cp %OPENSSL_DIR%\bin\libeay32.dll bin
+if exist %OPENSSL_DIR%\bin\ssleay32.dll cp %OPENSSL_DIR%\bin\ssleay32.dll bin
 cp ../AUTHORS bin
 cp ../CHANGELOG bin
 cp ../LICENSE bin

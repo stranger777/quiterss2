@@ -1,8 +1,8 @@
 lessThan(QT_MAJOR_VERSION, 5) {
-    error("quiterss: At least Qt "5.9.0" is required!")
+    error("quiterss: At least Qt 5.9.0 is required!")
 }
 isEqual(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 9) {
-   error("quiterss: At least Qt "5.9.0" is required!")
+   error("quiterss: At least Qt 5.9.0 is required!")
 }
 
 APP_REVISION = 0

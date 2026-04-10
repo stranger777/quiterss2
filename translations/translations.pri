@@ -36,7 +36,7 @@ TRANSLATIONS += \
 #    $$PWD/quiterss_hi.ts \
 
 isEmpty(QMAKE_LRELEASE) {
-    Q_OS_WIN:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
+    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
     else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
 }
 android {
