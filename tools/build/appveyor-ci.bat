@@ -9,4 +9,4 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 nmake
 if %errorlevel% neq 0 exit /b %errorlevel%
 cd ..
-windeployqt build\bin --qmldir=resources\qml --no-compiler-runtime
+windeployqt build\bin --qmldir=resources\qml --webengine --no-compiler-runtime
