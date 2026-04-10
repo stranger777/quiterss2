@@ -39,6 +39,7 @@ Application::Application(int &argc, char **argv) :
     m_writeDebugMsgLog(false),
     m_analytics(0),
     m_databaseManager(0),
+    m_feedManager(0),
     m_qtTranslator(0),
     m_appTranslator(0)
 {
@@ -77,7 +78,9 @@ Application::Application(int &argc, char **argv) :
     initWebEngine();
     initQmlFileSelector();
     initDatabase();
+    initFeedManager();
 
+    m_qmlEngine.rootContext()->setContextProperty("feedManager", m_feedManager);
     m_qmlEngine.rootContext()->setContextProperty("databaseManager", m_databaseManager);
     m_qmlEngine.rootContext()->setContextProperty("mainApp", this);
     m_qmlEngine.load(QUrl(QStringLiteral("qrc:/qml/mainwindow.qml")));
@@ -343,4 +346,9 @@ void Application::initDatabase()
     } else {
         qWarning() << "Database initialized at" << dbPath;
     }
+}
+
+void Application::initFeedManager()
+{
+    m_feedManager = new FeedManager(m_databaseManager, m_networkManager, this);
 }

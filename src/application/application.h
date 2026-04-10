@@ -30,6 +30,7 @@
 #include "ganalytics.h"
 #include "networkmanager.h"
 #include "databasemanager.h"
+#include "feedmanager.h"
 #ifndef DISABLE_BROWSER
 #include "webengine.h"
 #endif
@@ -65,6 +66,7 @@ public:
     QQmlApplicationEngine *qmlEngine() { return &m_qmlEngine; }
     NetworkManager *networkManager() const { return m_networkManager; }
     DatabaseManager *databaseManager() const { return m_databaseManager; }
+    FeedManager *feedManager() const { return m_feedManager; }
     GAnalytics *analytics() const { return m_analytics; }
 #ifndef DISABLE_BROWSER
     WebEngine *webEngine() const { return m_webEngine; }
@@ -96,6 +98,7 @@ private:
     void initWebEngine();
     void initQmlFileSelector();
     void initDatabase();
+    void initFeedManager();
 
     bool m_isPortable;
     bool m_isPortableAppsCom;
@@ -115,6 +118,7 @@ private:
 
     NetworkManager *m_networkManager;
     DatabaseManager *m_databaseManager;
+    FeedManager *m_feedManager;
     GAnalytics *m_analytics;
     QQmlApplicationEngine m_qmlEngine;
     SystemTray *m_systemTray;

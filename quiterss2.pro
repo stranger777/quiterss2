@@ -72,6 +72,9 @@ HEADERS += \
     src/common/common.h \
     src/network/networkmanager.h \
     src/database/databasemanager.h \
+    src/feedparser/feedparser.h \
+    src/feedfetcher/feedfetcher.h \
+    src/feedmanager/feedmanager.h \
 
 SOURCES += \
     src/application/application.cpp \
@@ -82,6 +85,9 @@ SOURCES += \
     src/application/settings.cpp \
     src/network/networkmanager.cpp \
     src/database/databasemanager.cpp \
+    src/feedparser/feedparser.cpp \
+    src/feedfetcher/feedfetcher.cpp \
+    src/feedmanager/feedmanager.cpp \
 
 INCLUDEPATH += \
     $$PWD/src \
@@ -90,6 +96,9 @@ INCLUDEPATH += \
     $$PWD/src/systemtray \
     $$PWD/src/network \
     $$PWD/src/database \
+    $$PWD/src/feedparser \
+    $$PWD/src/feedfetcher \
+    $$PWD/src/feedmanager \
 
 isEmpty(DISABLE_BROWSER) {
     isEmpty(MOBILE) {
