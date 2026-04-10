@@ -25,7 +25,7 @@ jobs:
         version: '6.7.3'
         target: 'desktop'
         arch: 'win64_msvc2019_64'
-        modules: 'qtwebengine qtwebchannel qtwebsockets'
+        modules: 'qtwebengine qtwebchannel qtwebsockets qtpositioning'
         dir: '${{ github.workspace }}/qt'
         cached: 'true'
 

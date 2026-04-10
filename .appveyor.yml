@@ -7,7 +7,7 @@ environment:
 install:
   - cmd: C:\Python312-x64\python.exe -m pip install --upgrade pip
   - cmd: C:\Python312-x64\python.exe -m pip install "aqtinstall>=3.2"
-  - cmd: C:\Python312-x64\python.exe -m aqt install-qt windows desktop 6.7.3 win64_msvc2019_64 -m qtwebengine qtwebchannel qtwebsockets -O C:\Qt
+  - cmd: C:\Python312-x64\python.exe -m aqt install-qt windows desktop 6.7.3 win64_msvc2019_64 -m qtwebengine qtwebchannel qtwebsockets qtpositioning -O C:\Qt
   - cmd: echo === Qt directory structure ===
   - cmd: dir C:\Qt\6.7.3\msvc2019_64 /b
   - cmd: echo === QML WebEngine check ===

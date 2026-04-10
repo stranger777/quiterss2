@@ -102,7 +102,7 @@ INCLUDEPATH += \
 
 isEmpty(DISABLE_BROWSER) {
     isEmpty(MOBILE) {
-        QT += webengine webenginecore webenginewidgets
+        QT += webenginequick webenginecore webenginewidgets positioning
 
     HEADERS += \
         src/webengine/cookiejar.h \
