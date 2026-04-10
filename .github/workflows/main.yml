@@ -5,63 +5,57 @@ on:
     branches: [ "master", "main" ]
   pull_request:
     branches: [ "master", "main" ]
-  workflow_dispatch: # Позволяет запустить сборку вручную через кнопку в UI
+  workflow_dispatch:
+
+env:
+  QT_DIR: ${{ github.workspace }}/qt/5.15.2/msvc2019_64
+  QT_BIN_DIR: ${{ github.workspace }}/qt/5.15.2/msvc2019_64/bin
 
 jobs:
   build-windows:
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        submodules: recursive # Важно для подмодулей проекта
 
-    - name: Setup Qt
+    - name: Setup Qt 5.15
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.6.0' # Можно изменить на 5.15.2 если нужна старая версия
+        version: '5.15.2'
         target: 'desktop'
         arch: 'win64_msvc2019_64'
-        modules: 'qtwebengine qtwebchannel' # Модули нужные для QuiteRSS
+        modules: 'qtwebengine'
         dir: '${{ github.workspace }}/qt'
-        cached: 'true'
 
     - name: Setup MSVC
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Configure CMake
+    - name: Add Qt to PATH
+      run: echo "${{ env.QT_BIN_DIR }}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    - name: Configure (qmake)
       run: |
-        cmake -S . -B build `
-          -G "Ninja" `
-          -DCMAKE_BUILD_TYPE=Release `
-          -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.6.0/msvc2019_64" `
-          -DUSE_WEBENGINE=ON
+        New-Item -ItemType Directory -Force -Path build
+        cd build
+        qmake CONFIG+=release -spec win32-msvc ..\quiterss2.pro
+      shell: pwsh
 
     - name: Build
       run: |
-        cmake --build build --config Release
+        cd build
+        nmake
+      shell: cmd
 
     - name: Deploy Qt Dependencies
       run: |
-        # Копируем экзешник во временную папку для деплоя
         $deployDir = "dist"
         New-Item -ItemType Directory -Force -Path $deployDir
-        Copy-Item "build/release/quiterss.exe" "$deployDir/"
 
-        # Запускаем windeployqt для сбора всех DLL
-        $qtBinPath = "${{ github.workspace }}/qt/6.6.0/msvc2019_64/bin"
-        & "$qtBinPath/windeployqt.exe" `
-          --release `
-          --no-compiler-runtime `
-          --no-opengl-sw `
-          --dir "$deployDir" `
-          "$deployDir/quiterss.exe"
+        Copy-Item "build\bin\QuiteRSS.exe" "$deployDir\" -Force
 
-        # Добавляем платформы (platforms) если не добавились
-        if (!(Test-Path "$deployDir/platforms/qwindows.dll")) {
-           Copy-Item "$qtBinPath/../plugins/platforms/qwindows.dll" "$deployDir/platforms/" -Force
-        }
+        & "${{ env.QT_BIN_DIR }}\windeployqt.exe" --release --qmldir="..\resources\qml" --no-compiler-runtime "$deployDir\QuiteRSS.exe"
+      shell: pwsh
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
