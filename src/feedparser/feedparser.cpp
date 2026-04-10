@@ -469,7 +469,7 @@ QDateTime FeedParser::parseDate(const QString &dateStr)
     // Handle timezone offsets without colon: "+0000" -> "+00:00"
     QRegularExpression re("([+-]\\d{2})(\\d{2})$");
     QRegularExpressionMatch m = re.match(ds);
-    if (m.hasCaptured()) {
+    if (m.hasMatch()) {
         QString fixed = ds;
         fixed.replace(m.capturedStart(), m.capturedLength(),
                       m.captured(1) + ":" + m.captured(2));
