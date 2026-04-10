@@ -1,0 +1,23 @@
+version: build{build}-{branch}
+image: Visual Studio 2022
+
+environment:
+  QTDIR: C:\Qt\5.15.2\msvc2019_64
+
+install:
+  - ps: >-
+      python -m pip install aqtinstall;
+      aqt install-qt windows desktop 5.15.2 win64_msvc2019_64 -O C:\Qt
+  - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
+  - set PATH=%QTDIR%\bin;%CD%\bin;%PATH%
+
+build_script:
+  - mkdir build && cd build
+  - qmake CONFIG+=release ..\quiterss2.pro
+  - nmake
+  - cd ..
+  - windeployqt build\bin --qmldir=resources\qml --no-compiler-runtime
+
+artifacts:
+  - path: build\bin
+    name: QuiteRSS-%APPVEYOR_BUILD_VERSION%
