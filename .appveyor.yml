@@ -8,15 +8,9 @@ install:
   - cmd: python -m pip install --upgrade pip
   - cmd: python -m pip install aqtinstall
   - cmd: aqt install-qt windows desktop 5.15.2 win64_msvc2019_64 -m qtwebengine -O C:\Qt
-  - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
-  - set PATH=%QTDIR%\bin;%CD%\bin;%PATH%
 
 build_script:
-  - mkdir build && cd build
-  - qmake CONFIG+=release ..\quiterss2.pro
-  - nmake
-  - cd ..
-  - windeployqt build\bin --qmldir=resources\qml --no-compiler-runtime
+  - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64 && set PATH=%QTDIR%\bin;%CD%\bin;%PATH% && mkdir build && cd build && qmake CONFIG+=release ..\quiterss2.pro && nmake && cd .. && windeployqt build\bin --qmldir=resources\qml --no-compiler-runtime
 
 artifacts:
   - path: build\bin
