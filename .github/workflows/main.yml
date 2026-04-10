@@ -25,6 +25,7 @@ jobs:
         version: '6.8.2'
         target: 'desktop'
         arch: 'win64_msvc2019_64'
+        modules: 'qtwebengine'
         dir: '${{ github.workspace }}/qt'
         cached: 'true'
 
