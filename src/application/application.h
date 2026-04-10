@@ -29,6 +29,7 @@
 #include "settings.h"
 #include "ganalytics.h"
 #include "networkmanager.h"
+#include "databasemanager.h"
 #ifndef DISABLE_BROWSER
 #include "webengine.h"
 #endif
@@ -63,6 +64,7 @@ public:
     Q_INVOKABLE bool showSplashScreenEnabled() const { return m_showSplashScreen; }
     QQmlApplicationEngine *qmlEngine() { return &m_qmlEngine; }
     NetworkManager *networkManager() const { return m_networkManager; }
+    DatabaseManager *databaseManager() const { return m_databaseManager; }
     GAnalytics *analytics() const { return m_analytics; }
 #ifndef DISABLE_BROWSER
     WebEngine *webEngine() const { return m_webEngine; }
@@ -93,6 +95,7 @@ private:
     void initSystemTray();
     void initWebEngine();
     void initQmlFileSelector();
+    void initDatabase();
 
     bool m_isPortable;
     bool m_isPortableAppsCom;
@@ -111,6 +114,7 @@ private:
     bool m_updateFeedsStartUp;
 
     NetworkManager *m_networkManager;
+    DatabaseManager *m_databaseManager;
     GAnalytics *m_analytics;
     QQmlApplicationEngine m_qmlEngine;
     SystemTray *m_systemTray;

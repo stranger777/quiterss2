@@ -28,7 +28,7 @@ android {
     !build_pass:message(quiterss: Desktop)
 }
 
-QT += core qml quick widgets
+QT += core qml quick widgets sql
 CONFIG += c++11
 
 APP_VERSION      = 0.0.1
@@ -71,6 +71,7 @@ HEADERS += \
     src/application/settings.h \
     src/common/common.h \
     src/network/networkmanager.h \
+    src/database/databasemanager.h \
 
 SOURCES += \
     src/application/application.cpp \
@@ -80,6 +81,7 @@ SOURCES += \
     src/application/logfile.cpp \
     src/application/settings.cpp \
     src/network/networkmanager.cpp \
+    src/database/databasemanager.cpp \
 
 INCLUDEPATH += \
     $$PWD/src \
@@ -87,6 +89,7 @@ INCLUDEPATH += \
     $$PWD/src/common \
     $$PWD/src/systemtray \
     $$PWD/src/network \
+    $$PWD/src/database \
 
 isEmpty(DISABLE_BROWSER) {
     isEmpty(MOBILE) {

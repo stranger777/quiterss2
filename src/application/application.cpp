@@ -38,6 +38,7 @@ Application::Application(int &argc, char **argv) :
     m_dirPathInitialized(false),
     m_writeDebugMsgLog(false),
     m_analytics(0),
+    m_databaseManager(0),
     m_qtTranslator(0),
     m_appTranslator(0)
 {
@@ -75,7 +76,9 @@ Application::Application(int &argc, char **argv) :
     initSystemTray();
     initWebEngine();
     initQmlFileSelector();
+    initDatabase();
 
+    m_qmlEngine.rootContext()->setContextProperty("databaseManager", m_databaseManager);
     m_qmlEngine.rootContext()->setContextProperty("mainApp", this);
     m_qmlEngine.load(QUrl(QStringLiteral("qrc:/qml/mainwindow.qml")));
     // Loading slow components
@@ -329,4 +332,15 @@ void Application::initQmlFileSelector()
     selectors.append(webEngine()->getQmlSelectors());
 #endif
     qfs->setExtraSelectors(selectors);
+}
+
+void Application::initDatabase()
+{
+    m_databaseManager = new DatabaseManager(this);
+    QString dbPath = dataDirPath() + "/quiterss.db";
+    if (!m_databaseManager->initialize(dbPath)) {
+        qWarning() << "Failed to initialize database at" << dbPath;
+    } else {
+        qWarning() << "Database initialized at" << dbPath;
+    }
 }
