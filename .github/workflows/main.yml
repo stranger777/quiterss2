@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 env:
-  QT_DIR: ${{ github.workspace }}/qt/6.8.2/msvc2019_64
-  QT_BIN_DIR: ${{ github.workspace }}/qt/6.8.2/msvc2019_64/bin
+  QT_DIR: ${{ github.workspace }}/qt/6.7.3/msvc2019_64
+  QT_BIN_DIR: ${{ github.workspace }}/qt/6.7.3/msvc2019_64/bin
 
 jobs:
   build-windows:
@@ -19,10 +19,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup Qt 6.8
+    - name: Setup Qt 6.7
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.8.2'
+        version: '6.7.3'
         target: 'desktop'
         arch: 'win64_msvc2019_64'
         modules: 'qtwebengine'
