@@ -9,4 +9,9 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 nmake
 if %errorlevel% neq 0 exit /b %errorlevel%
 cd ..
-windeployqt build\bin --qmldir=%APPVEYOR_BUILD_FOLDER%\resources\qml --webengine --no-compiler-runtime
+echo === windeployqt verbose output ===
+windeployqt build\bin --qmldir=%APPVEYOR_BUILD_FOLDER%\resources\qml --webengine --no-compiler-runtime --verbose 2
+echo === deployment directory listing ===
+dir build\bin /s /b
+echo === QML plugins check ===
+dir build\bin\qml /s /b 2>nul || echo No qml dir found
