@@ -10,7 +10,7 @@ install:
   - cmd: aqt install-qt windows desktop 5.15.2 win64_msvc2019_64 -m qtwebengine -O C:\Qt
 
 build_script:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x64 && set PATH=%QTDIR%\bin;%CD%\bin;%PATH% && mkdir build && cd build && qmake CONFIG+=release -spec win32-msvc ..\quiterss2.pro && nmake && cd .. && windeployqt build\bin --qmldir=resources\qml --no-compiler-runtime
+  - cmd: call tools\build\appveyor-ci.bat
 
 artifacts:
   - path: build\bin
