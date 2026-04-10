@@ -54,7 +54,7 @@ jobs:
 
         Copy-Item "build\bin\QuiteRSS.exe" "$deployDir\" -Force
 
-        & "${{ env.QT_BIN_DIR }}\windeployqt.exe" --release --qmldir="..\resources\qml" --webengine --no-compiler-runtime "$deployDir\QuiteRSS.exe"
+        & "${{ env.QT_BIN_DIR }}\windeployqt.exe" --release --qmldir="${{ github.workspace }}\resources\qml" --webengine --no-compiler-runtime "$deployDir\QuiteRSS.exe"
       shell: pwsh
 
     - name: Upload Artifact
