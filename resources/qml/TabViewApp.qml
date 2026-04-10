@@ -46,17 +46,9 @@ Rectangle {
       anchors.fill: parent
       anchors.topMargin: 0
 
-      function createEmptyTab(profile) {
-          var tab = addTab("", tabComponent);
-          addTab("Feed 1");
-          addTab("Feed 2");
-          tab.active = true;
-          tab.title = Qt.binding(function() { return tab.item.title });
-          return tab;
-      }
-
       Component.onCompleted: {
-          createEmptyTab("defaultProfile")
+          addTab("Feed 1", tabComponent).active = true;
+          addTab("Feed 2", tabComponent);
       }
 
       style: TabViewStyle {
@@ -114,6 +106,12 @@ Rectangle {
           id: tabComponent
           WebView {
               url: "https://google.com"
+          }
+      }
+
+      onCurrentIndexChanged: {
+          if (currentIndex >= 0 && getTab(currentIndex).item) {
+              getTab(currentIndex).item.url = "https://google.com"
           }
       }
   }
