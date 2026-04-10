@@ -18,101 +18,44 @@
 **
 ****************************************************************************/
 import QtQuick 2.8
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.0
 import QtWebEngine 1.3
 
 Rectangle {
-  id: tabBar
+    id: tabBar
+    width: parent.width
+    height: parent.height
+    color: "#f8f8f8"
+    anchors.fill: parent
 
-  property int tabsHeight: 48
-  property int tabIndex: 0
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: 0
 
-  property VisualItemModel tabsModel
+        TabBar {
+            id: tabBarControl
+            Layout.fillWidth: true
 
-  signal tabItemClicked(int index)
+            TabButton {
+                text: "Feed 1"
+            }
+            TabButton {
+                text: "Feed 2"
+            }
+        }
 
-  width: parent.width
-  height: parent.height
+        StackLayout {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            currentIndex: tabBarControl.currentIndex
 
-  color: "#f8f8f8"
-
-  anchors.fill: parent
-
-  TabView {
-      id: tabs
-      anchors.fill: parent
-      anchors.topMargin: 0
-
-      Component.onCompleted: {
-          addTab("Feed 1", tabComponent).active = true;
-          addTab("Feed 2", tabComponent);
-      }
-
-      style: TabViewStyle {
-          frameOverlap: 0
-          tabOverlap: 0
-          tab: Rectangle {
-              color: styleData.selected ? "#ffffff" :"#e1e1e1"
-              implicitWidth: Math.max(text.width + image.width + 14, 80)
-              implicitHeight: text.height + 16
-              Row {
-                  anchors.fill: parent
-                  leftPadding: 5
-                  rightPadding: 5
-                  spacing: 5
-                  Image {
-                      id: image
-                      anchors.verticalCenter: parent.verticalCenter
-                      sourceSize.width: 16
-                      sourceSize.height: 16
-                      asynchronous: true
-                      source: {
-                          if (control.getTab(styleData.index).item)
-                              control.getTab(styleData.index).item.icon
-                          else
-                              "qrc:/images/feed-icon.png"
-                      }
-                  }
-                  Text {
-                      id: text
-                      anchors.verticalCenter: parent.verticalCenter
-                      renderType: Text.NativeRendering
-                      text: styleData.title
-                  }
-              }
-              Rectangle {
-                  color: "#c1c1c1"
-                  width: 1
-                  height: {
-                      if (styleData.nextSelected || styleData.selected)
-                          parent.height
-                      else
-                          text.height
-                  }
-                  anchors {
-                      verticalCenter: parent.verticalCenter
-                      right: parent.right
-                  }
-              }
-          }
-          tabBar: Rectangle { color: "#e1e1e1" }
-          frame: Rectangle { color: "#ffffff" }
-      }
-
-      Component {
-          id: tabComponent
-          WebView {
-              url: "https://google.com"
-          }
-      }
-
-      onCurrentIndexChanged: {
-          if (currentIndex >= 0 && getTab(currentIndex).item) {
-              getTab(currentIndex).item.url = "https://google.com"
-          }
-      }
-  }
+            WebEngineView {
+                url: "https://google.com"
+            }
+            WebEngineView {
+                url: "https://google.com"
+            }
+        }
+    }
 }

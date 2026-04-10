@@ -29,7 +29,7 @@ android {
 }
 
 QT += core qml quick widgets sql
-CONFIG += c++11
+CONFIG += c++17
 
 APP_VERSION      = 0.0.1
 APP_DATE         = 28.07.2017

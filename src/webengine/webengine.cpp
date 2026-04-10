@@ -19,11 +19,6 @@
 ****************************************************************************/
 #include "webengine.h"
 
-#ifdef MOBILE
-#include <QtWebView>
-#else
-#include <QtWebEngine>
-#endif
 #include "application.h"
 
 WebEngine::WebEngine(QObject *parent) : QObject(parent)
@@ -31,8 +26,7 @@ WebEngine::WebEngine(QObject *parent) : QObject(parent)
 #ifdef MOBILE
     QtWebView::initialize();
 #else
-    QtWebEngine::initialize();
-    m_profile = QQuickWebEngineProfile::defaultProfile();
+    m_profile = QWebEngineProfile::defaultProfile();
     m_cookieJar = new CookieJar(m_profile->cookieStore(), this);
 #endif
     loadSettings();
@@ -48,15 +42,15 @@ void WebEngine::loadSettings()
     Settings settings;
     settings.beginGroup("Browser-Settings");
 #ifndef MOBILE
-    m_profile->setPersistentCookiesPolicy(QQuickWebEngineProfile::AllowPersistentCookies);
+    m_profile->setPersistentCookiesPolicy(QWebEngineProfile::AllowPersistentCookies);
     m_profile->setPersistentStoragePath(mainApp->dataDirPath());
 
     const QString &cachePath = settings.value("CachePath", mainApp->cacheDirPath()).toString();
     m_profile->setCachePath(cachePath);
 
     const bool allowCache = settings.value("AllowLocalCache", true).toBool();
-    m_profile->setHttpCacheType(allowCache ? QQuickWebEngineProfile::DiskHttpCache
-                                         : QQuickWebEngineProfile::MemoryHttpCache);
+    m_profile->setHttpCacheType(allowCache ? QWebEngineProfile::DiskHttpCache
+                                         : QWebEngineProfile::MemoryHttpCache);
 
     const int cacheSize = settings.value("LocalCacheSize", 50).toInt() * 1000 * 1000;
     m_profile->setHttpCacheMaximumSize(cacheSize);

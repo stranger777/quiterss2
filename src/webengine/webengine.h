@@ -22,7 +22,7 @@
 
 #include <QObject>
 #ifndef MOBILE
-#include <QQuickWebEngineProfile>
+#include <QWebEngineProfile>
 #include "cookiejar.h"
 #endif
 
@@ -36,12 +36,12 @@ public:
     void loadSettings();
     QStringList getQmlSelectors();
 #ifndef MOBILE
-    QQuickWebEngineProfile *profile() const { return m_profile; }
+    QWebEngineProfile *profile() const { return m_profile; }
 #endif
 
 private:
 #ifndef MOBILE
-    QQuickWebEngineProfile *m_profile;
+    QWebEngineProfile *m_profile;
     CookieJar *m_cookieJar;
 #endif
 

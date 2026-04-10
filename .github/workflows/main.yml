@@ -8,21 +8,21 @@ on:
   workflow_dispatch:
 
 env:
-  QT_DIR: ${{ github.workspace }}/qt/5.15.2/msvc2019_64
-  QT_BIN_DIR: ${{ github.workspace }}/qt/5.15.2/msvc2019_64/bin
+  QT_DIR: ${{ github.workspace }}/qt/6.8.2/msvc2019_64
+  QT_BIN_DIR: ${{ github.workspace }}/qt/6.8.2/msvc2019_64/bin
 
 jobs:
   build-windows:
-    runs-on: windows-2019
+    runs-on: windows-2022
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup Qt 5.15
+    - name: Setup Qt 6.8
       uses: jurplel/install-qt-action@v4
       with:
-        version: '5.15.2'
+        version: '6.8.2'
         target: 'desktop'
         arch: 'win64_msvc2019_64'
         dir: '${{ github.workspace }}/qt'

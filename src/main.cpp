@@ -24,9 +24,6 @@ int main(int argc, char *argv[])
 {
     LogFile::initialize();
 
-    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     Application app(argc, argv);
     if (app.isClosing())
       return 0;
