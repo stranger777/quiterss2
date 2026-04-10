@@ -1,37 +1,26 @@
 version: build{build}-{branch}
-image: Visual Studio 2019
-
-build:
-  parallel: true
-  verbosity: minimal
+image: Visual Studio 2022
 
 environment:
-  global:
-    ARCH: x64
-    QTDIR: C:\Qt\5.15.2\msvc2019_64
   matrix:
   - PORTABLE: "true"
     ARCH: x64
     QTDIR: C:\Qt\5.15.2\msvc2019_64
 
-configuration:
-  - release
-
 install:
-  - if "%APPVEYOR_REPO_TAG%" == "true" (set APPVEYOR_BUILD_VERSION=%APPVEYOR_REPO_TAG_NAME%)
-  - if not defined APPVEYOR_BUILD_VERSION set APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_NUMBER%
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+  - ps: |
+      pip install aqtinstall
+      aqt install-qt windows desktop 5.15.2 win64_msvc2019_64 -m qtwebengine -O C:\Qt
+  - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
   - set PATH=%QTDIR%\bin;%CD%\bin;%PATH%
 
 build_script:
   - mkdir build && cd build
-  - qmake CONFIG+=%CONFIGURATION% ..\quiterss2.pro
+  - qmake CONFIG+=release ..\quiterss2.pro
   - nmake
   - cd ..
   - windeployqt build\bin --qmldir=resources\qml --no-compiler-runtime
 
 artifacts:
   - path: build\bin
-    name: QuiteRSS-%APPVEYOR_BUILD_VERSION%-portable
-
-# No deploy — BinTray shutdown (May 2021). Artifacts are available from AppVeyor build pages.
+    name: QuiteRSS-%APPVEYOR_BUILD_VERSION%
