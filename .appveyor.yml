@@ -7,7 +7,7 @@ environment:
 install:
   - cmd: python -m pip install --upgrade pip
   - cmd: python -m pip install aqtinstall
-  - cmd: aqt install-qt windows desktop 6.8.2 win64_msvc2019_64 -m qtwebengine -O C:\Qt
+  - cmd: python -m aqt install-qt windows desktop 6.8.2 win64_msvc2019_64 -O C:\Qt --archives qtbase qtsvg qtdeclarative qttools
 
 build_script:
   - cmd: call tools\build\appveyor-ci.bat

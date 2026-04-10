@@ -4,9 +4,9 @@ set PATH=%QTDIR%\bin;%CD%\bin;%PATH%
 
 mkdir build
 cd build
-qmake CONFIG+=release -spec win32-msvc ..\quiterss2.pro
+qmake CONFIG+=release -spec win32-msvc DISABLE_BROWSER=true ..\quiterss2.pro
 if %errorlevel% neq 0 exit /b %errorlevel%
 nmake
 if %errorlevel% neq 0 exit /b %errorlevel%
 cd ..
-windeployqt build\bin --qmldir=%APPVEYOR_BUILD_FOLDER%\resources\qml --webengine --no-compiler-runtime
+windeployqt build\bin --qmldir=%APPVEYOR_BUILD_FOLDER%\resources\qml --no-compiler-runtime
